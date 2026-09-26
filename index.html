@@ -1,138 +1,263 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827">
-<title>Tradie AI</title><link rel="manifest" href="./manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Tradie AI">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1220">
+<title>Tradie AI — Business Hub</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tradie AI">
 <style>
-:root{--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--bg:#f4f5f7;--card:#fff;--accent:#111827;--ok:#166534;--warn:#92400e}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
-.app{max-width:480px;margin:auto;min-height:100vh;background:var(--bg);padding-bottom:78px}
-header{background:#fff;padding:18px 17px 13px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
-.brand{font-weight:900;font-size:22px}.tag{font-size:12px;color:var(--muted)}
-main{padding:14px}.page{display:none}.page.active{display:block}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:12px;box-shadow:0 2px 8px #00000008}
-.hero{background:var(--accent);color:#fff}.hero p{color:#d1d5db;font-size:14px;line-height:1.4}
-.hero h1{font-size:23px;margin:5px 0}.label{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.05em}.hero .label{color:#cbd5e1}
-textarea,input,select{width:100%;border:1px solid #d1d5db;border-radius:12px;padding:12px;font:inherit;background:#fff}textarea{min-height:74px;resize:vertical}
-button{font:inherit}.primary{border:0;border-radius:13px;padding:13px;background:#fff;color:#111827;font-weight:800;width:100%;margin-top:9px}.dark{background:#111827;color:#fff;border:0;border-radius:12px;padding:12px;font-weight:800}.outline{background:#fff;border:1px solid #d1d5db;border-radius:11px;padding:10px;font-weight:700}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{margin:0}.metric b{display:block;font-size:21px;margin-top:3px}
-.row{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-top:1px solid var(--line)}.row:first-of-type{border-top:0}
-.pill{font-size:10px;background:#eef2ff;border-radius:99px;padding:5px 8px;height:max-content;white-space:nowrap}
-.small{font-size:12px;color:var(--muted)}h2{font-size:16px;margin:2px 0 10px}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:auto;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:10}.nav button{border:0;background:#fff;padding:10px 2px 9px;font-size:10px;color:#6b7280}.nav button.active{color:#111827;font-weight:900}
-.notice{padding:11px;border-radius:12px;background:#fff7ed;color:var(--warn);font-size:13px}.ok{color:var(--ok)}.modal{display:none;position:fixed;inset:0;background:#0007;z-index:30;align-items:end}.modal.show{display:flex}.sheet{background:#fff;width:100%;max-width:480px;margin:auto;border-radius:22px 22px 0 0;padding:18px;max-height:88vh;overflow:auto}
-.item{padding:12px 0;border-top:1px solid var(--line)}.item:first-child{border-top:0}.danger{color:#991b1b}
-</style></head>
+:root{
+ --bg:#f5f7fb;--card:#fff;--ink:#101828;--muted:#667085;--line:#e4e7ec;
+ --nav:#0b1220;--accent:#f59e0b;--accent2:#2563eb;--green:#12b76a;--red:#f04438;
+ --shadow:0 8px 28px rgba(16,24,40,.07)
+}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{max-width:520px;margin:auto;min-height:100vh;background:var(--bg);padding-bottom:92px}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(245,247,251,.94);backdrop-filter:blur(16px);padding:calc(12px + env(safe-area-inset-top)) 16px 12px;border-bottom:1px solid rgba(228,231,236,.8);display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#111827,#243b64);color:#fff;display:grid;place-items:center;font-weight:900;box-shadow:0 6px 14px #10182825}
+.brand b{font-size:17px}.brand span{display:block;font-size:11px;color:var(--muted);margin-top:1px}
+.iconbtn{border:1px solid var(--line);background:#fff;width:40px;height:40px;border-radius:12px}
+main{padding:16px}.page{display:none}.page.active{display:block}
+.hero{background:linear-gradient(145deg,#0b1220,#182844);color:#fff;border-radius:24px;padding:20px;box-shadow:0 12px 35px #0b122035;margin-bottom:14px}
+.hero .eyebrow{color:#c7d2fe}.hero h1{font-size:27px;line-height:1.08;margin:5px 0 8px}.hero p{color:#d0d5dd;font-size:13px;line-height:1.45;margin:0 0 15px}
+.airow{display:flex;gap:8px}.airow textarea{flex:1;min-height:72px;background:#fff;color:var(--ink);border:0;border-radius:15px;padding:12px;resize:none}.speak{width:52px;border:0;border-radius:15px;background:#f59e0b;color:#111827;font-size:21px;font-weight:900}
+.ai-actions{display:flex;gap:8px;margin-top:9px}.ai-actions button{flex:1}
+.btn{border:0;border-radius:12px;padding:11px 14px;font-weight:800}.primary{background:#f59e0b;color:#111827}.dark{background:#101828;color:#fff}.light{background:#fff;border:1px solid var(--line);color:var(--ink)}.danger{color:#b42318}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:18px 2px 9px}.sectionhead h2{font-size:16px;margin:0}.link{background:none;border:0;color:#2563eb;font-weight:800;font-size:12px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:var(--shadow)}.metric .icon{font-size:18px}.metric .label{font-size:10px;font-weight:800;color:var(--muted);letter-spacing:.05em;margin-top:8px}.metric b{display:block;font-size:22px;margin-top:3px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:var(--shadow);margin-bottom:12px}.card h3{font-size:15px;margin:0 0 10px}.muted{color:var(--muted);font-size:12px}.tiny{font-size:11px;color:var(--muted)}
+.notice{display:flex;gap:10px;padding:12px;border-radius:14px;background:#fff7ed;border:1px solid #fedf89;margin-bottom:8px;font-size:13px}.notice strong{display:block;margin-bottom:2px}
+.listrow{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}.listrow:first-child{border-top:0}.rowmain{min-width:0}.rowmain b{display:block;font-size:13px}.rowmain span{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.badge{font-size:10px;font-weight:800;border-radius:999px;padding:5px 8px;background:#eef2ff;color:#344054;white-space:nowrap}.badge.green{background:#ecfdf3;color:#027a48}.badge.orange{background:#fff7ed;color:#b54708}.badge.red{background:#fef3f2;color:#b42318}
+.quickgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.quick{border:1px solid var(--line);background:#fff;border-radius:15px;padding:12px 8px;text-align:center;font-size:11px;font-weight:800}.quick div{font-size:19px;margin-bottom:5px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.field{margin-bottom:9px}.field label{display:block;font-size:11px;font-weight:800;color:var(--muted);margin:0 0 5px}.field input,.field select,.field textarea{width:100%;border:1px solid #d0d5dd;background:#fff;border-radius:11px;padding:11px;outline:none}.field textarea{min-height:85px;resize:vertical}
+.tabs{display:flex;gap:7px;overflow:auto;padding-bottom:2px;margin-bottom:12px}.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font-size:11px;font-weight:800;white-space:nowrap}.tab.active{background:#101828;color:#fff;border-color:#101828}
+.bottom{position:fixed;left:0;right:0;bottom:0;z-index:30;max-width:520px;margin:auto;background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:7px 6px calc(7px + env(safe-area-inset-bottom))}
+.bottom button{border:0;background:transparent;color:#98a2b3;font-size:9px;font-weight:700;padding:4px 1px}.bottom button .ico{font-size:19px;display:block;margin-bottom:2px}.bottom button.active{color:#101828}
+.modal{display:none;position:fixed;inset:0;background:#10182899;z-index:100;align-items:flex-end}.modal.show{display:flex}.sheet{width:100%;max-width:520px;margin:auto;background:#fff;border-radius:24px 24px 0 0;padding:18px;max-height:90vh;overflow:auto}.sheethead{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.sheethead h2{margin:0;font-size:18px}.close{border:0;background:#f2f4f7;border-radius:10px;width:34px;height:34px}
+.empty{text-align:center;padding:24px 10px;color:var(--muted);font-size:12px}.statline{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.statline:last-child{border-bottom:0}
+.toast{position:fixed;left:50%;bottom:94px;transform:translateX(-50%) translateY(15px);background:#101828;color:#fff;padding:11px 14px;border-radius:12px;font-size:12px;opacity:0;pointer-events:none;z-index:200;transition:.2s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(min-width:700px){body{padding:20px}.app{border-radius:28px;overflow:hidden;box-shadow:0 20px 70px #10182818}}
+</style>
+</head>
 <body>
 <div class="app">
-<header><div class="brand">Tradie AI</div><div class="tag">Your AI office manager</div></header>
+<header class="topbar">
+ <div class="brand"><div class="logo">T</div><div><b>Tradie AI</b><span>Your business hub</span></div></div>
+ <button class="iconbtn" onclick="openModal('profileModal')">👤</button>
+</header>
 
 <main>
 <section id="home" class="page active">
-<div class="card hero">
-<div class="label">YOUR BUSINESS</div><h1 id="hello">Good morning.</h1>
-<p>Tell me what happened. I’ll turn it into the right business records.</p>
-<textarea id="command" placeholder='Try: "I worked 8 hours on Dave’s bathroom job at $95 an hour"'></textarea>
-<button class="primary" onclick="runCommand()">✨ Do it</button>
-<button class="primary" onclick="startVoice()">🎙️ Speak</button>
-<div id="voiceStatus" class="small" style="color:#d1d5db;margin-top:8px"></div>
-</div>
-<div class="grid">
-<div class="card metric"><div class="label">HOURS THIS WEEK</div><b id="hours">0</b></div>
-<div class="card metric"><div class="label">LABOUR VALUE</div><b id="labour">$0</b></div>
-<div class="card metric"><div class="label">UNBILLED</div><b id="unbilled">$0</b></div>
-<div class="card metric"><div class="label">OUTSTANDING</div><b id="outstanding">$0</b></div>
-</div>
-<div class="card"><h2>⚠️ AI noticed</h2><div id="notices"></div></div>
-<div class="card"><h2>Recent activity</h2><div id="activity" class="small">Nothing yet.</div></div>
+ <div class="hero">
+  <div class="eyebrow tiny">AI BUSINESS ASSISTANT</div>
+  <h1 id="greeting">Good morning.</h1>
+  <p>Tell me what happened in plain English. I’ll organise the job, money, people and reminders for you.</p>
+  <div class="airow"><textarea id="command" placeholder='“Jake worked 7.5 hours on Dave’s job and we bought $340 of materials”'></textarea><button class="speak" onclick="startVoice()">🎙️</button></div>
+  <div class="ai-actions"><button class="btn primary" onclick="runCommand()">✨ Run with AI</button><button class="btn light" onclick="openModal('examplesModal')">Examples</button></div>
+  <div id="voiceStatus" class="tiny" style="color:#d0d5dd;margin-top:8px"></div>
+ </div>
+
+ <div class="metrics">
+  <div class="metric"><div class="icon">⏱️</div><div class="label">THIS WEEK</div><b id="mHours">0.0h</b></div>
+  <div class="metric"><div class="icon">💵</div><div class="label">LABOUR VALUE</div><b id="mLabour">$0</b></div>
+  <div class="metric"><div class="icon">📄</div><div class="label">TO INVOICE</div><b id="mUnbilled">$0</b></div>
+  <div class="metric"><div class="icon">💳</div><div class="label">OUTSTANDING</div><b id="mOutstanding">$0</b></div>
+ </div>
+
+ <div class="sectionhead"><h2>Quick actions</h2></div>
+ <div class="quickgrid">
+  <button class="quick" onclick="openModal('jobModal')"><div>🛠️</div>New job</button>
+  <button class="quick" onclick="openModal('invoiceModal')"><div>🧾</div>Invoice</button>
+  <button class="quick" onclick="openModal('expenseModal')"><div>📸</div>Expense</button>
+  <button class="quick" onclick="openModal('personModal')"><div>👷</div>Person</button>
+  <button class="quick" onclick="openModal('reminderModal')"><div>🔔</div>Reminder</button>
+  <button class="quick" onclick="showPage('reports')"><div>📊</div>Reports</button>
+ </div>
+
+ <div class="sectionhead"><h2>AI noticed</h2><button class="link" onclick="showPage('jobs')">View jobs</button></div>
+ <div id="notices"></div>
+
+ <div class="sectionhead"><h2>Today</h2></div>
+ <div class="card" id="todayCard"></div>
+
+ <div class="sectionhead"><h2>Recent activity</h2></div>
+ <div class="card" id="activity"></div>
 </section>
 
 <section id="jobs" class="page">
-<div class="card"><h2>Jobs</h2><button class="dark" onclick="openModal('jobModal')">+ New job</button></div>
-<div id="jobList"></div>
+ <div class="sectionhead"><h2>Jobs & customers</h2><button class="btn dark" onclick="openModal('jobModal')">+ New job</button></div>
+ <div class="tabs"><button class="tab active" onclick="filterJobs('all',this)">All</button><button class="tab" onclick="filterJobs('active',this)">Active</button><button class="tab" onclick="filterJobs('quoted',this)">Quoted</button><button class="tab" onclick="filterJobs('complete',this)">Complete</button></div>
+ <div id="jobList"></div>
 </section>
 
 <section id="money" class="page">
-<div class="card"><h2>Money</h2><div class="grid">
-<div><div class="label">Hourly rate</div><b id="rateView">$95/hr</b></div>
-<div><div class="label">Labour logged</div><b id="labour2">$0</b></div>
-</div><br><button class="outline" onclick="openModal('settingsModal')">Set rates/business details</button></div>
-<div class="card"><h2>Receipts</h2><button class="dark" onclick="document.getElementById('receipt').click()">🧾 Add receipt photo</button><input id="receipt" type="file" accept="image/*" capture="environment" style="display:none" onchange="receiptAdded()"><div id="receiptList"></div></div>
-<div class="card"><h2>Invoices</h2><button class="dark" onclick="openModal('invoiceModal')">+ Draft invoice</button><div id="invoiceList"></div></div>
+ <div class="sectionhead"><h2>Money</h2><button class="btn dark" onclick="openModal('invoiceModal')">+ Invoice</button></div>
+ <div class="card"><div class="statline"><span>Revenue invoiced</span><b id="revInvoiced">$0</b></div><div class="statline"><span>Outstanding</span><b id="moneyOutstanding">$0</b></div><div class="statline"><span>Expenses recorded</span><b id="moneyExpenses">$0</b></div><div class="statline"><span>Estimated labour cost</span><b id="moneyLabourCost">$0</b></div></div>
+ <div class="sectionhead"><h2>Invoices</h2></div><div class="card" id="invoiceList"></div>
+ <div class="sectionhead"><h2>Expenses & receipts</h2><button class="link" onclick="openModal('expenseModal')">+ Add</button></div><div class="card" id="expenseList"></div>
 </section>
 
-<section id="reminders" class="page">
-<div class="card"><h2>Reminders</h2><input id="remText" placeholder="e.g. Call Dave about bathroom job"><input id="remDate" type="date" style="margin-top:8px"><button class="dark" style="margin-top:8px" onclick="addReminder()">+ Add reminder</button></div>
-<div id="reminderList"></div>
+<section id="people" class="page">
+ <div class="sectionhead"><h2>People</h2><button class="btn dark" onclick="openModal('personModal')">+ Add person</button></div>
+ <div class="card"><div class="muted">Keep each person's hours and pay rate separate from your customer charge-out rate.</div></div>
+ <div id="peopleList"></div>
+</section>
+
+<section id="reports" class="page">
+ <div class="sectionhead"><h2>Reports</h2></div>
+ <div class="card"><h3>This week</h3><div class="statline"><span>Hours</span><b id="rHours">0</b></div><div class="statline"><span>Labour value</span><b id="rLabour">$0</b></div><div class="statline"><span>Estimated worker pay</span><b id="rPay">$0</b></div><div class="statline"><span>Expenses</span><b id="rExpenses">$0</b></div></div>
+ <div class="card"><h3>Business snapshot</h3><div class="statline"><span>Open jobs</span><b id="rJobs">0</b></div><div class="statline"><span>Draft invoices</span><b id="rDrafts">0</b></div><div class="statline"><span>Overdue reminders</span><b id="rReminders">0</b></div><div class="statline"><span>Team members</span><b id="rPeople">0</b></div></div>
+ <div class="card"><h3>Accountant-ready data</h3><div class="muted">Export the records entered into this prototype for review. This is not a tax or payroll calculation.</div><button class="btn dark" style="width:100%;margin-top:12px" onclick="exportData()">Export business data</button></div>
 </section>
 
 <section id="more" class="page">
-<div class="card"><h2>Business setup</h2><div class="small">These settings control calculations in this prototype.</div><br><button class="outline" onclick="openModal('settingsModal')">Open settings</button></div>
-<div class="card"><h2>Data</h2><button class="outline" onclick="exportData()">Export my data</button> <button class="outline" onclick="resetData()">Reset demo</button></div>
-<div class="card"><h2>Important</h2><div class="small">This prototype is not a payroll, accounting or tax service. Financial figures are estimates based on information entered by the user.</div></div>
+ <div class="sectionhead"><h2>More</h2></div>
+ <div class="card"><h3>Business profile</h3><div class="statline"><span>Business</span><b id="bizNameView">Your business</b></div><div class="statline"><span>Owner</span><b id="ownerView">—</b></div><div class="statline"><span>Default charge-out</span><b id="rateView">$95/hr</b></div><button class="btn light" style="width:100%;margin-top:10px" onclick="openModal('profileModal')">Edit profile</button></div>
+ <div class="card"><h3>Tools</h3><button class="btn light" style="width:100%;margin-bottom:8px" onclick="openModal('reminderModal')">🔔 Reminders</button><button class="btn light" style="width:100%;margin-bottom:8px" onclick="showPage('reports')">📊 Reports</button><button class="btn light" style="width:100%" onclick="exportData()">⬇️ Export data</button></div>
+ <div class="card"><h3>About the prototype</h3><div class="muted">Built as a test of an AI office manager for trades and small businesses. Figures are estimates based on information entered by the user.</div></div>
 </section>
 </main>
 
-<nav class="nav">
-<button class="active" onclick="show('home',this)">🏠<br>Home</button>
-<button onclick="show('jobs',this)">👷<br>Jobs</button>
-<button onclick="show('money',this)">💰<br>Money</button>
-<button onclick="show('reminders',this)">🔔<br>Reminders</button>
-<button onclick="show('more',this)">⚙️<br>More</button>
+<nav class="bottom">
+ <button class="active" onclick="showPage('home',this)"><span class="ico">⌂</span>Home</button>
+ <button onclick="showPage('jobs',this)"><span class="ico">🛠</span>Jobs</button>
+ <button onclick="showPage('money',this)"><span class="ico">$</span>Money</button>
+ <button onclick="showPage('people',this)"><span class="ico">👥</span>People</button>
+ <button onclick="showPage('more',this)"><span class="ico">☰</span>More</button>
 </nav>
 </div>
 
-<div id="jobModal" class="modal"><div class="sheet"><h2>New job</h2><input id="jn" placeholder="Customer name"><input id="jd" placeholder="Job description" style="margin-top:8px"><input id="ja" type="number" placeholder="Quoted amount" style="margin-top:8px"><button class="dark" style="margin-top:10px" onclick="addJob()">Create job</button><button class="outline" style="margin-top:8px;width:100%" onclick="closeModal('jobModal')">Cancel</button></div></div>
+<!-- MODALS -->
+<div id="jobModal" class="modal"><div class="sheet"><div class="sheethead"><h2>New job</h2><button class="close" onclick="closeModal('jobModal')">×</button></div>
+ <div class="field"><label>CUSTOMER</label><input id="jCustomer" placeholder="e.g. Dave Smith"></div><div class="field"><label>JOB NAME</label><input id="jName" placeholder="e.g. Bathroom renovation"></div>
+ <div class="formgrid"><div class="field"><label>STATUS</label><select id="jStatus"><option>Active</option><option>Quoted</option><option>Complete</option></select></div><div class="field"><label>QUOTE / VALUE</label><input id="jValue" type="number" placeholder="1850"></div></div>
+ <button class="btn dark" style="width:100%" onclick="addJob()">Create job</button></div></div>
 
-<div id="invoiceModal" class="modal"><div class="sheet"><h2>Draft invoice</h2><select id="ic"></select><input id="iamt" type="number" placeholder="Amount" style="margin-top:8px"><input id="idesc" placeholder="Description" style="margin-top:8px"><button class="dark" style="margin-top:10px" onclick="addInvoice()">Create draft</button><button class="outline" style="margin-top:8px;width:100%" onclick="closeModal('invoiceModal')">Cancel</button></div></div>
+<div id="personModal" class="modal"><div class="sheet"><div class="sheethead"><h2>Add person</h2><button class="close" onclick="closeModal('personModal')">×</button></div>
+ <div class="field"><label>NAME</label><input id="pName" placeholder="Jake"></div><div class="formgrid"><div class="field"><label>TYPE</label><select id="pType"><option>Employee</option><option>Subcontractor</option><option>Owner</option></select></div><div class="field"><label>PAY RATE / HR</label><input id="pRate" type="number" placeholder="42"></div></div>
+ <button class="btn dark" style="width:100%" onclick="addPerson()">Add person</button></div></div>
 
-<div id="settingsModal" class="modal"><div class="sheet"><h2>Business settings</h2><label class="small">Your name</label><input id="owner" placeholder="Dave"><label class="small">Default charge-out rate</label><input id="rate" type="number" placeholder="95" style="margin-top:8px"><button class="dark" style="margin-top:10px" onclick="saveSettings()">Save</button><button class="outline" style="margin-top:8px;width:100%" onclick="closeModal('settingsModal')">Cancel</button></div></div>
+<div id="invoiceModal" class="modal"><div class="sheet"><div class="sheethead"><h2>New invoice</h2><button class="close" onclick="closeModal('invoiceModal')">×</button></div>
+ <div class="field"><label>CUSTOMER</label><input id="iCustomer" placeholder="Customer name"></div><div class="field"><label>DESCRIPTION</label><input id="iDesc" placeholder="Labour and materials"></div>
+ <div class="formgrid"><div class="field"><label>AMOUNT</label><input id="iAmount" type="number" placeholder="1850"></div><div class="field"><label>STATUS</label><select id="iStatus"><option>Draft</option><option>Sent</option><option>Paid</option><option>Overdue</option></select></div></div>
+ <button class="btn dark" style="width:100%" onclick="addInvoice()">Create invoice</button></div></div>
+
+<div id="expenseModal" class="modal"><div class="sheet"><div class="sheethead"><h2>Add expense</h2><button class="close" onclick="closeModal('expenseModal')">×</button></div>
+ <div class="field"><label>SUPPLIER / DESCRIPTION</label><input id="eName" placeholder="Bunnings — materials"></div><div class="formgrid"><div class="field"><label>AMOUNT</label><input id="eAmount" type="number" placeholder="340"></div><div class="field"><label>JOB</label><input id="eJob" placeholder="Bathroom job"></div></div>
+ <button class="btn dark" style="width:100%" onclick="addExpense()">Save expense</button></div></div>
+
+<div id="reminderModal" class="modal"><div class="sheet"><div class="sheethead"><h2>New reminder</h2><button class="close" onclick="closeModal('reminderModal')">×</button></div>
+ <div class="field"><label>REMINDER</label><input id="rmText" placeholder="Invoice Dave"></div><div class="field"><label>DATE</label><input id="rmDate" type="date"></div>
+ <button class="btn dark" style="width:100%" onclick="addReminder()">Create reminder</button></div></div>
+
+<div id="profileModal" class="modal"><div class="sheet"><div class="sheethead"><h2>Business profile</h2><button class="close" onclick="closeModal('profileModal')">×</button></div>
+ <div class="field"><label>BUSINESS NAME</label><input id="bizName" placeholder="Smith Plumbing"></div><div class="field"><label>OWNER</label><input id="owner" placeholder="Dave"></div><div class="field"><label>DEFAULT CHARGE-OUT RATE / HR</label><input id="rate" type="number" placeholder="95"></div>
+ <button class="btn dark" style="width:100%" onclick="saveProfile()">Save profile</button></div></div>
+
+<div id="examplesModal" class="modal"><div class="sheet"><div class="sheethead"><h2>Talk to your business</h2><button class="close" onclick="closeModal('examplesModal')">×</button></div>
+ <div class="listrow"><div class="rowmain"><b>Log labour</b><span>“Jake worked 7.5 hours on Dave’s job.”</span></div></div>
+ <div class="listrow"><div class="rowmain"><b>Record an expense</b><span>“I bought $340 of materials for Dave’s job.”</span></div></div>
+ <div class="listrow"><div class="rowmain"><b>Create an invoice</b><span>“Invoice Sarah $1,850 for the hot-water job.”</span></div></div>
+ <div class="listrow"><div class="rowmain"><b>Set a reminder</b><span>“Remind me Friday to invoice Dave.”</span></div></div>
+ <div class="listrow"><div class="rowmain"><b>Ask a question</b><span>“What am I still owed?”</span></div></div>
+ <div class="listrow"><div class="rowmain"><b>Get a snapshot</b><span>“How did we do this month?”</span></div></div>
+</div></div>
+
+<div id="toast" class="toast"></div>
 
 <script>
-const key='tradieAI_v2';
-let d=JSON.parse(localStorage.getItem(key)||'null')||{owner:'Dave',rate:95,hours:[],jobs:[],receipts:[],invoices:[],reminders:[],activity:[]};
-const money=n=>'$'+Number(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-function save(){localStorage.setItem(key,JSON.stringify(d));render()}
-function show(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');if(id==='money')renderMoney()}
-function openModal(id){if(id==='invoiceModal'){ic.innerHTML=d.jobs.map((j,i)=>`<option value="${i}">${esc(j.customer)} — ${esc(j.desc)}</option>`).join('')||'<option>No jobs yet</option>'}document.getElementById(id).classList.add('show')}
+const KEY='tradieAI_v4';
+let d=JSON.parse(localStorage.getItem(KEY)||'null');
+if(!d){
+ const old=JSON.parse(localStorage.getItem('tradieAI_v2')||'null');
+ d=old||{business:'Your Business',owner:'Dave',rate:95,hours:[],jobs:[],expenses:[],invoices:[],people:[],reminders:[],activity:[]};
+}
+d.business=d.business||'Your Business'; d.owner=d.owner||'Dave'; d.rate=+d.rate||95; d.hours=d.hours||[]; d.jobs=d.jobs||[]; d.expenses=d.expenses||[]; d.invoices=d.invoices||[]; d.people=d.people||[]; d.reminders=d.reminders||[]; d.activity=d.activity||[];
+const money=n=>'$'+Number(n||0).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:2});
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function save(){localStorage.setItem(KEY,JSON.stringify(d));render();toast('Saved')}
+function toast(t){const x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1500)}
+function showPage(id,btn){
+ document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.bottom button').forEach(x=>x.classList.remove('active'));
+ if(btn) btn.classList.add('active'); else {const b=[...document.querySelectorAll('.bottom button')].find(x=>x.getAttribute('onclick')?.includes("'"+id+"'"));if(b)b.classList.add('active')}
+ render();
+}
+function openModal(id){document.getElementById(id).classList.add('show')}
 function closeModal(id){document.getElementById(id).classList.remove('show')}
-function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+function addActivity(s){d.activity.unshift(new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})+' — '+s);d.activity=d.activity.slice(0,30)}
+function addJob(){const c=jCustomer.value.trim(),n=jName.value.trim();if(!c||!n)return toast('Add a customer and job name');d.jobs.unshift({customer:c,name:n,status:jStatus.value,value:+jValue.value||0,created:new Date().toISOString()});addActivity('Created '+n+' for '+c);['jCustomer','jName','jValue'].forEach(x=>document.getElementById(x).value='');closeModal('jobModal');save()}
+function addPerson(){const n=pName.value.trim(),r=+pRate.value||0;if(!n||!r)return toast('Add a name and pay rate');d.people.push({name:n,type:pType.value,rate:r,hours:[]});addActivity('Added '+n+' at '+money(r)+'/hr');pName.value=pRate.value='';closeModal('personModal');save()}
+function addInvoice(){const c=iCustomer.value.trim(),amt=+iAmount.value||0;if(!c||!amt)return toast('Add a customer and amount');d.invoices.unshift({customer:c,desc:iDesc.value||'Business services',amount:amt,status:iStatus.value,date:new Date().toISOString()});addActivity('Created '+money(amt)+' invoice for '+c);iCustomer.value=iDesc.value=iAmount.value='';closeModal('invoiceModal');save()}
+function addExpense(){const n=eName.value.trim(),amt=+eAmount.value||0;if(!n||!amt)return toast('Add a description and amount');d.expenses.unshift({name:n,amount:amt,job:eJob.value,date:new Date().toISOString()});addActivity('Recorded '+money(amt)+' expense — '+n);eName.value=eAmount.value=eJob.value='';closeModal('expenseModal');save()}
+function addReminder(){const t=rmText.value.trim();if(!t)return toast('Add a reminder');d.reminders.unshift({text:t,date:rmDate.value,done:false});addActivity('Created reminder: '+t);rmText.value=rmDate.value='';closeModal('reminderModal');save()}
+function saveProfile(){d.business=bizName.value||d.business;d.owner=owner.value||d.owner;d.rate=+rate.value||d.rate;closeModal('profileModal');addActivity('Updated business profile');save()}
+function startVoice(){
+ if(!('webkitSpeechRecognition' in window))return voiceStatus.textContent='Voice input is not supported here.';
+ const r=new webkitSpeechRecognition();r.lang='en-AU';r.interimResults=false;r.onstart=()=>voiceStatus.textContent='Listening…';r.onresult=e=>{command.value=e.results[0][0].transcript;voiceStatus.textContent='Review the text, then tap Run with AI.'};r.onerror=()=>voiceStatus.textContent='Voice input failed — try again.';r.start();
+}
 function runCommand(){
  const t=command.value.trim();if(!t)return;
- let m=t.match(/(\d+(?:\.\d+)?)\s*(?:hours?|hrs?)/i), rateM=t.match(/\$(\d+(?:\.\d+)?)\s*(?:an?\s*)?(?:hour|hr)/i);
- let job=d.jobs.find(j=>t.toLowerCase().includes(j.customer.toLowerCase()));
- if(m){let h=+m[1],r=rateM?+rateM[1]:d.rate;d.hours.push({date:new Date().toISOString(),hours:h,rate:r,job:job?job.customer:'Unassigned'});d.activity.unshift(`Logged ${h} hours at ${money(r)}/hr${job?' on '+job.customer:''}.`)}
- else if(/remind/i.test(t)){d.reminders.push({text:t.replace(/.*remind me to /i,'').replace(/.*remind me /i,''),date:'',done:false});d.activity.unshift('Created a reminder from your message.')}
- else if(/receipt|bunnings|expense|spent/i.test(t)){d.receipts.push({date:new Date().toISOString(),vendor:'Captured from message',amount:0,job:job?.customer||''});d.activity.unshift('Captured an expense/receipt record.')}
- else if(/invoice/i.test(t)){d.invoices.push({customer:job?.customer||'Draft',amount:0,desc:t,status:'Draft'});d.activity.unshift('Created an invoice draft for confirmation.')}
- else d.activity.unshift('AI understood the request but needs a production AI connection to perform this action safely.');
-command.value='';save();
+ const low=t.toLowerCase();
+ const hoursM=t.match(/(\d+(?:\.\d+)?)\s*(?:hours?|hrs?)/i);
+ const moneyM=t.match(/\$(\d+(?:\.\d+)?)/);
+ const rateM=t.match(/\$(\d+(?:\.\d+)?)\s*(?:an?\s*)?(?:hour|hr)/i);
+ const person=d.people.find(p=>low.includes(p.name.toLowerCase()));
+ const job=d.jobs.find(j=>low.includes(j.customer.toLowerCase())||low.includes(j.name.toLowerCase()));
+ if(hoursM){
+   const h=+hoursM[1];
+   if(person){person.hours.push({date:new Date().toISOString(),hours:h});addActivity('Logged '+h+'h for '+person.name)}
+   else {const r=rateM?+rateM[1]:d.rate;d.hours.push({date:new Date().toISOString(),hours:h,rate:r,job:job?.customer||''});addActivity('Logged '+h+'h at '+money(r)+'/hr'+(job?' on '+job.customer:''))}
+   toast('Hours logged');
+ }else if(/bought|spent|expense|receipt|materials/i.test(t)&&moneyM){
+   d.expenses.unshift({name:'AI captured expense',amount:+moneyM[1],job:job?.customer||'',date:new Date().toISOString()});addActivity('Captured '+money(+moneyM[1])+' expense');toast('Expense captured');
+ }else if(/invoice/i.test(t)&&moneyM){
+   const cust=job?.customer||t.replace(/.*invoice\s+/i,'').split(/\s+\$/)[0].trim()||'Customer';
+   d.invoices.unshift({customer:cust,desc:t,amount:+moneyM[1],status:'Draft',date:new Date().toISOString()});addActivity('Drafted invoice for '+cust);toast('Invoice draft created');
+ }else if(/remind|reminder/i.test(t)){
+   d.reminders.unshift({text:t.replace(/.*remind me\s*(?:to)?/i,'').trim()||t,date:'',done:false});addActivity('Created reminder');toast('Reminder created');
+ }else if(/what.*owed|outstanding/i.test(t)){showPage('money');toast('Showing outstanding money')}
+ else if(/how.*month|how.*week|snapshot|report/i.test(t)){showPage('reports');toast('Showing business report')}
+ else {toast('Try one of the Examples');openModal('examplesModal')}
+ command.value='';
+ save();
 }
-function startVoice(){
- if(!('webkitSpeechRecognition' in window)){voiceStatus.textContent='Voice input is not available in this browser. Type instead.';return}
- const r=new webkitSpeechRecognition();r.lang='en-AU';r.interimResults=false;r.onstart=()=>voiceStatus.textContent='Listening…';r.onresult=e=>{command.value=e.results[0][0].transcript;voiceStatus.textContent='Got it — review then tap Do it.'};r.onerror=()=>voiceStatus.textContent='Voice input failed — try again.';r.onend=()=>{};r.start();
+function filterJobs(mode,btn){document.querySelectorAll('.jobsfilter').forEach(x=>{});document.querySelectorAll('#jobs .tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderJobs(mode)}
+function renderJobs(mode='all'){
+ let list=d.jobs;if(mode==='active')list=list.filter(j=>j.status==='Active');if(mode==='quoted')list=list.filter(j=>j.status==='Quoted');if(mode==='complete')list=list.filter(j=>j.status==='Complete');
+ jobList.innerHTML=list.length?list.map(j=>{const hrs=d.hours.filter(x=>x.job===j.customer).reduce((s,x)=>s+x.hours,0);return `<div class="card"><div class="listrow" style="border:0;padding:0"><div class="rowmain"><b>${esc(j.name)}</b><span>${esc(j.customer)} · ${hrs.toFixed(1)}h logged</span></div><span class="badge ${j.status==='Complete'?'green':j.status==='Quoted'?'orange':''}">${esc(j.status)}</span></div><div class="statline" style="margin-top:9px"><span>Job value</span><b>${money(j.value)}</b></div></div>`}).join(''):'<div class="card empty">No jobs in this view.</div>';
 }
-function addJob(){let customer=jn.value.trim(),desc=jd.value.trim();if(!customer||!desc)return;d.jobs.push({customer,desc,quote:+ja.value||0,hours:0});d.activity.unshift(`Created ${customer}'s ${desc} job.`);jn.value=jd.value=ja.value='';closeModal('jobModal');save()}
-function addInvoice(){let j=d.jobs[+ic.value];if(!j)return;d.invoices.push({customer:j.customer,amount:+iamt.value||0,desc:idesc.value||j.desc,status:'Draft'});d.activity.unshift(`Drafted invoice for ${j.customer}.`);iamt.value=idesc.value='';closeModal('invoiceModal');save()}
-function receiptAdded(){let f=receipt.files[0];if(!f)return;d.receipts.push({date:new Date().toISOString(),vendor:'Photo receipt',amount:0,job:''});d.activity.unshift(`Receipt photo captured: ${f.name}`);receipt.value='';save()}
-function addReminder(){let x=remText.value.trim();if(!x)return;d.reminders.push({text:x,date:remDate.value,done:false});remText.value=remDate.value='';save()}
-function saveSettings(){d.owner=owner.value||d.owner;d.rate=+rate.value||d.rate;closeModal('settingsModal');save()}
-function exportData(){let a=document.createElement('a');a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(d,null,2));a.download='tradie-ai-data.json';a.click()}
-function resetData(){if(confirm('Reset the prototype data?')){localStorage.removeItem(key);location.reload()}}
 function render(){
- hello.textContent=`Good ${new Date().getHours()<12?'morning':new Date().getHours()<18?'afternoon':'evening'}, ${esc(d.owner)}.`;
- let hrs=d.hours.reduce((s,x)=>s+x.hours,0),lab=d.hours.reduce((s,x)=>s+x.hours*x.rate,0);
- hours.textContent=hrs.toFixed(1);labour.textContent=money(lab);labour2.textContent=money(lab);rateView.textContent=money(d.rate)+'/hr';
- unbilled.textContent=money(d.invoices.filter(x=>x.status==='Draft').reduce((s,x)=>s+x.amount,0));
- outstanding.textContent=money(d.invoices.filter(x=>x.status!=='Paid').reduce((s,x)=>s+x.amount,0));
- jobList.innerHTML=d.jobs.length?d.jobs.map((j,i)=>`<div class="card"><h2>${esc(j.customer)}</h2><div>${esc(j.desc)}</div><div class="small">Quote ${money(j.quote)} · Logged hours ${d.hours.filter(x=>x.job===j.customer).reduce((s,x)=>s+x.hours,0).toFixed(1)}</div></div>`).join(''):'<div class="card small">No jobs yet.</div>';
- receiptList.innerHTML=d.receipts.map(x=>`<div class="item">🧾 ${esc(x.vendor)} <span class="small">${money(x.amount)}</span></div>`).join('')||'<div class="small" style="margin-top:10px">No receipts yet.</div>';
- invoiceList.innerHTML=d.invoices.map(x=>`<div class="item">💵 ${esc(x.customer)} — ${money(x.amount)} <span class="pill">${x.status}</span><br><span class="small">${esc(x.desc)}</span></div>`).join('')||'<div class="small" style="margin-top:10px">No invoices yet.</div>';
- reminderList.innerHTML=d.reminders.map((x,i)=>`<div class="card"><div>${x.done?'✅':'🔔'} ${esc(x.text)}</div><div class="small">${x.date||'No date'}</div></div>`).join('')||'<div class="card small">No reminders.</div>';
- activity.innerHTML=d.activity.slice(0,8).map(x=>`<div class="item">${esc(x)}</div>`).join('')||'Nothing yet.';
- let notices=[];d.jobs.forEach(j=>{let h=d.hours.filter(x=>x.job===j.customer).reduce((s,x)=>s+x.hours,0);if(h>0&&!d.invoices.some(x=>x.customer===j.customer))notices.push(`⚠️ ${j.customer}: ${h.toFixed(1)} hours logged but no invoice draft.`)});notices.push(...d.reminders.filter(x=>!x.done&&x.date&&x.date<=new Date().toISOString().slice(0,10)).map(x=>`🔔 Reminder due: ${x.text}`));document.getElementById('notices').innerHTML=notices.length?notices.map(x=>`<div class="notice" style="margin-bottom:7px">${esc(x)}</div>`).join(''):'<div class="small ok">Nothing obvious right now.</div>';
+ const hr=new Date().getHours();greeting.textContent=`Good ${hr<12?'morning':hr<18?'afternoon':'evening'}, ${d.owner}.`;
+ const labour=d.hours.reduce((s,x)=>s+x.hours*x.rate,0), hrs=d.hours.reduce((s,x)=>s+x.hours,0), drafts=d.invoices.filter(x=>x.status==='Draft').reduce((s,x)=>s+x.amount,0), outstanding=d.invoices.filter(x=>!['Paid'].includes(x.status)).reduce((s,x)=>s+x.amount,0);
+ mHours.textContent=hrs.toFixed(1)+'h';mLabour.textContent=money(labour);mUnbilled.textContent=money(drafts);mOutstanding.textContent=money(outstanding);
+ bizNameView.textContent=d.business;ownerView.textContent=d.owner;rateView.textContent=money(d.rate)+'/hr';
+ revInvoiced.textContent=money(d.invoices.reduce((s,x)=>s+x.amount,0));moneyOutstanding.textContent=money(outstanding);moneyExpenses.textContent=money(d.expenses.reduce((s,x)=>s+x.amount,0));
+ moneyLabourCost.textContent=money(d.people.reduce((s,p)=>s+p.hours.reduce((a,x)=>a+x.hours,0)*p.rate,0));
+ const notices=[];
+ d.jobs.forEach(j=>{const h=d.hours.filter(x=>x.job===j.customer).reduce((s,x)=>s+x.hours,0);if(h&&!d.invoices.some(i=>i.customer===j.customer))notices.push(['💡','Unbilled time',`${j.customer} has ${h.toFixed(1)} hours logged with no invoice.`])});
+ d.reminders.filter(x=>x.date&&x.date<=new Date().toISOString().slice(0,10)&&!x.done).forEach(x=>notices.push(['🔔','Reminder due',x.text]));
+ notices.push(...(d.invoices.filter(x=>x.status==='Overdue').slice(0,2).map(x=>['⚠️','Overdue invoice',`${x.customer} — ${money(x.amount)}`])));
+ document.getElementById('notices').innerHTML=notices.length?notices.slice(0,4).map(n=>`<div class="notice"><div>${n[0]}</div><div><strong>${esc(n[1])}</strong>${esc(n[2])}</div></div>`).join(''):'<div class="card"><div class="muted">Nothing urgent spotted right now.</div></div>';
+ const today=d.jobs.filter(j=>j.status!=='Complete').slice(0,3);
+ todayCard.innerHTML=today.length?today.map(j=>`<div class="listrow"><div class="rowmain"><b>${esc(j.name)}</b><span>${esc(j.customer)}</span></div><span class="badge">${esc(j.status)}</span></div>`).join(''):'<div class="empty">No active jobs yet. Add your first job above.</div>';
+ activity.innerHTML=d.activity.slice(0,7).map(x=>`<div class="listrow"><div class="rowmain"><span>${esc(x)}</span></div></div>`).join('')||'<div class="empty">Your business activity will appear here.</div>';
+ renderJobs(); renderInvoices(); renderExpenses(); renderPeople(); renderReports();
 }
-function renderMoney(){owner.value=d.owner;rate.value=d.rate}
+function renderInvoices(){invoiceList.innerHTML=d.invoices.length?d.invoices.map((x,i)=>`<div class="listrow"><div class="rowmain"><b>${esc(x.customer)}</b><span>${esc(x.desc)}</span></div><div style="text-align:right"><b>${money(x.amount)}</b><div><span class="badge ${x.status==='Paid'?'green':x.status==='Overdue'?'red':'orange'}">${esc(x.status)}</span></div></div></div>`).join(''):'<div class="empty">No invoices yet.</div>'}
+function renderExpenses(){expenseList.innerHTML=d.expenses.length?d.expenses.map(x=>`<div class="listrow"><div class="rowmain"><b>${esc(x.name)}</b><span>${esc(x.job||'No job linked')}</span></div><b>${money(x.amount)}</b></div>`).join(''):'<div class="empty">No expenses yet.</div>'}
+function renderPeople(){peopleList.innerHTML=d.people.length?d.people.map((p,i)=>{const h=p.hours.reduce((s,x)=>s+x.hours,0),pay=h*p.rate;return `<div class="card"><div class="listrow" style="border:0;padding:0"><div class="rowmain"><b>👤 ${esc(p.name)}</b><span>${esc(p.type)} · ${money(p.rate)}/hr</span></div><button class="btn light" onclick="logPerson(${i})">+ Hours</button></div><div class="metrics" style="margin-top:12px"><div class="metric"><div class="label">HOURS</div><b>${h.toFixed(1)}</b></div><div class="metric"><div class="label">EST. PAY</div><b>${money(pay)}</b></div></div></div>`}).join(''):'<div class="card empty">No team members yet. Add employees, subcontractors or owners.</div>'}
+function logPerson(i){const h=parseFloat(prompt(`Hours worked by ${d.people[i].name}?`));if(!h||h<0)return;d.people[i].hours.push({date:new Date().toISOString(),hours:h});addActivity('Logged '+h+'h for '+d.people[i].name);save()}
+function renderReports(){rHours.textContent=d.hours.reduce((s,x)=>s+x.hours,0).toFixed(1);rLabour.textContent=money(d.hours.reduce((s,x)=>s+x.hours*x.rate,0));rPay.textContent=money(d.people.reduce((s,p)=>s+p.hours.reduce((a,x)=>a+x.hours,0)*p.rate,0));rExpenses.textContent=money(d.expenses.reduce((s,x)=>s+x.amount,0));rJobs.textContent=d.jobs.filter(j=>j.status!=='Complete').length;rDrafts.textContent=d.invoices.filter(x=>x.status==='Draft').length;rReminders.textContent=d.reminders.filter(x=>x.date&&x.date<=new Date().toISOString().slice(0,10)&&!x.done).length;rPeople.textContent=d.people.length}
+function exportData(){const a=document.createElement('a');a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(d,null,2));a.download='tradie-ai-business-data.json';a.click();toast('Export started')}
+bizName.value=d.business;owner.value=d.owner;rate.value=d.rate;
 render();
-</script><script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}</script></body></html>
+</script>
+</body></html>
